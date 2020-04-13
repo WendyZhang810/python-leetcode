@@ -36,3 +36,55 @@ class Solution:
             left=self.hasPathSum(root.left,temp)
             right=self.hasPathSum(root.right,temp)
             return left or right
+
+#BFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+        if not root:
+            return False
+        sum_temp=0
+        temp=None
+        stack=[(root,root.val)]
+        while stack:
+            temp,sum_temp=stack.pop(0)
+            if temp.right:
+                stack.append((temp.left,sum_temp+temp.left.val))
+            if temp.left:
+                stack.append((temp.right,sum_temp+temp.right.val))
+            if not temp.left and not temp.right and sum_temp==sum:
+                return True
+        return False
+
+#DFS
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+        if not root:
+            return False
+        sum_temp=0
+        temp=None
+        stack=[(root,root.val)]
+        while stack:
+            temp,sum_temp=stack.pop()
+
+            if temp.right:
+                stack.append((temp.right,sum_temp+temp.right.val))
+            if temp.left:
+                stack.append((temp.left,sum_temp+temp.left.val))
+
+            if not temp.left and not temp.right and sum_temp==sum:
+                return True
+        return False
